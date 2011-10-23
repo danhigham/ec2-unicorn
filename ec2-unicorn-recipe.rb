@@ -186,7 +186,7 @@ Capistrano::Configuration.instance(:must_exist).load do
         then
           echo "Unicorn pid file exists";
         else
-          unicorn -D -c #{current_path}/config/unicorn.conf #{current_path}/config.ru;
+          unicorn -D -E production -c #{current_path}/config/unicorn.conf #{current_path}/config.ru;
         fi
       BASH
 
@@ -218,10 +218,10 @@ Capistrano::Configuration.instance(:must_exist).load do
           pid=`cat #{shared_path}/pids/unicorn.pid`;
           kill -s QUIT $pid;
           
-          unicorn -D -c #{current_path}/config/unicorn.conf #{current_path}/config.ru;
+          unicorn -D -E production -c #{current_path}/config/unicorn.conf #{current_path}/config.ru;
         else
           
-          unicorn -D -c #{current_path}/config/unicorn.conf #{current_path}/config.ru;
+          unicorn -D -E production -c #{current_path}/config/unicorn.conf #{current_path}/config.ru;
         fi
       BASH
       
