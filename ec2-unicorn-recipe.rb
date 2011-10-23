@@ -101,7 +101,7 @@ Capistrano::Configuration.instance(:must_exist).load do
           keepalive_timeout 5;
 
           # path for static files
-          root #{current_path}/static;
+          root #{current_path}/public;
 
           # Prefer to serve static files directly from nginx to avoid unnecessary
           # data copies from the application server.
@@ -243,9 +243,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   end
   
   # add in hooks to run tasks at appropriate times
-  after 'deploy:setup', 'ec2_unicorn:setup'
   after 'deploy', 'ec2_unicorn:setup'
-  after 'deploy:setup', 'ec2_unicorn:update_unicorn_confs'
-  
+  after 'deploy', 'ec2_unicorn:update_unicorn_confs'
   after 'deploy', 'ec2_unicorn:restart_unicorn'
 end
